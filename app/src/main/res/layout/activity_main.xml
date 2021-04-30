@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Music"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/software"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Software"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/eBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="eBook"/>
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
