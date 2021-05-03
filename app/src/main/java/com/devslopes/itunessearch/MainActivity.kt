@@ -1,10 +1,14 @@
 package com.devslopes.itunessearch
 
-import androidx.appcompat.app.AppCompatActivity
+import android.net.http.HttpResponseCache
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devslopes.itunessearch.databinding.ActivityMainBinding
+import java.io.File
+import java.io.IOException
+
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
@@ -14,6 +18,15 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val storeItemAdapter = StoreItemAdapter()
+
+        try {
+            val httpCacheDir = File(this.getCacheDir(), "http")
+            val httpCacheSize = (80 * 1024 * 1024).toLong() // 80 MiB
+            HttpResponseCache.install(httpCacheDir, httpCacheSize)
+        } catch (e: IOException) {
+            Log.i(TAG, "HTTP response cache installation failed:$e")
+        }
+
         binding.apply {
             results.apply {
                 adapter = storeItemAdapter
@@ -31,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchMatchingItems(binding: ActivityMainBinding, storeItemAdapter: StoreItemAdapter) {
-        val queryMap = mutableMapOf<String,String>()
+        val queryMap = mutableMapOf<String, String>()
         val searchTerm = binding.search.query.toString()
         val mediaType = when (binding.filter.checkedRadioButtonId) {
             R.id.movie -> "movie"
@@ -56,4 +69,14 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "after storeItemFragment called... query: $queryMap")
         }
     }
+
+
+    override fun onStop() {
+        super.onStop()
+
+        val cache = HttpResponseCache.getInstalled()
+        cache?.flush()
+
+    }
+
 }
