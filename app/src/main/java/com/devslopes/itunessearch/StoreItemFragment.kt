@@ -12,7 +12,7 @@ private const val TAG = "StoreItemFragment"
 
 class StoreItemFragment {
 
-    fun fetchItems(query: Map<String,String>, onComplete: (MutableList<StoreItem>) -> Unit) {
+    fun fetchItems(query: Map<String,String>, onComplete: (MutableList<StoreItem>?) -> Unit) {
         val permittedQueryKeys = listOf(
             "term", "country", "media", "entity", "attribute",
             "callback", "limit", "lang", "version", "explicit"
@@ -36,6 +36,7 @@ class StoreItemFragment {
             try {
                 val json = JSONObject(data ?: "")
                 val store = StoreItems(json)
+                Log.i(TAG, "Result count: ${store.count}")
                 onComplete(store.results)
             } catch (ex: java.lang.Exception) {
                 Log.e(TAG, "unable to perform search, check your search criteria: Error $ex")

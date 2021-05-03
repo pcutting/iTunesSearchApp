@@ -2,18 +2,19 @@ package com.devslopes.itunessearch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devslopes.itunessearch.databinding.ActivityMainBinding
 
+
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val storeItemAdapter = StoreItemAdapter()
-
         binding.apply {
             results.apply {
                 adapter = storeItemAdapter
@@ -41,13 +42,19 @@ class MainActivity : AppCompatActivity() {
             else -> "all"
         }
 
-
-
         if (searchTerm.isNotEmpty()) {
             queryMap["term"]=searchTerm
             queryMap["media"]=mediaType
+            queryMap["lang"]="en_us"
+            queryMap["limit"]="501"
 
-
+            StoreItemFragment().fetchItems(
+                queryMap
+            ) {
+                storeItemAdapter.submitList(it)
+                Log.i(TAG, "Searched items. $it.count()")
+            }
+            Log.i(TAG, "after storeItemFragment called... query: $queryMap")
         }
     }
 }

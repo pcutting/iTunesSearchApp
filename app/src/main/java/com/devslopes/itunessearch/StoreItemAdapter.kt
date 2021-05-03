@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devslopes.itunessearch.databinding.ItemStoreBinding
 
-class StoreItemAdapter : ListAdapter<String, StoreItemAdapter.StoreItemViewHolder>(diff) {
+class StoreItemAdapter : ListAdapter<StoreItem, StoreItemAdapter.StoreItemViewHolder>(diff) {
 
     companion object {
-        private val diff = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        private val diff = object : DiffUtil.ItemCallback<StoreItem>() {
+            override fun areItemsTheSame(oldItem: StoreItem, newItem: StoreItem): Boolean {
                 return areContentsTheSame(oldItem, newItem)
             }
 
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            override fun areContentsTheSame(oldItem: StoreItem, newItem: StoreItem): Boolean {
                 return oldItem == newItem
             }
 
@@ -36,8 +36,8 @@ class StoreItemAdapter : ListAdapter<String, StoreItemAdapter.StoreItemViewHolde
         private val binding: ItemStoreBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(title: String) {
-            binding.title.text = title
+        fun onBind(item: StoreItem) {
+            binding.title.text = item.trackName
         }
     }
 }
