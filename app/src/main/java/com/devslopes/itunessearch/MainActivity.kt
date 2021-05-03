@@ -7,6 +7,8 @@ import com.devslopes.itunessearch.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var searchResults : StoreItems
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,17 +33,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchMatchingItems(binding: ActivityMainBinding, storeItemAdapter: StoreItemAdapter) {
+        val queryMap = mutableMapOf<String,String>()
         val searchTerm = binding.search.query.toString()
         val mediaType = when (binding.filter.checkedRadioButtonId) {
             R.id.movie -> "movie"
             R.id.music -> "music"
             R.id.software -> "software"
             R.id.eBook -> "eBook"
-            else -> ""
+            else -> "all"
         }
 
+
+
         if (searchTerm.isNotEmpty()) {
-            // perform search!!!
+            queryMap["term"]=searchTerm
+            queryMap["media"]=mediaType
+
+            f
         }
     }
 }
