@@ -1,12 +1,6 @@
 package com.devslopes.itunessearch
 
-import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.devslopes.itunessearch.databinding.FragmentStoreItemsBinding
-import kotlinx.android.synthetic.main.fragment_store_items.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,31 +10,7 @@ import java.net.URL
 
 private const val TAG = "StoreItemFragment"
 
-class StoreItemFragment : Fragment(R.layout.fragment_store_items) {
-
-    private lateinit var binding: FragmentStoreItemsBinding
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentStoreItemsBinding.bind(view)
-
-        val storeItemAdapter = StoreItemAdapter()
-
-        binding.apply {
-            results.apply {
-                adapter = storeItemAdapter
-                layoutManager = LinearLayoutManager(context,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                    )
-            }
-
-        }
-
-
-    }
-
+class StoreItemFragment {
 
     fun fetchItems(query: Map<String,String>, onComplete: (MutableList<StoreItem>) -> Unit) {
         val permittedQueryKeys = listOf(
