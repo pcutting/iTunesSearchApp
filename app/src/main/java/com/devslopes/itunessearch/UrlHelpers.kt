@@ -29,7 +29,7 @@ fun URL.buildUrl(queryMap: Map<String,String>):URL {
     return url
 }
 
-private fun streamToString(inputStream: InputStream): String {
+fun streamToString(inputStream: InputStream): String {
     val bufferReader = BufferedReader(InputStreamReader(inputStream))
     var result = ""
     try {
@@ -62,3 +62,4 @@ fun getItunesJson(url: URL):String? {
         data
     }
 }
+

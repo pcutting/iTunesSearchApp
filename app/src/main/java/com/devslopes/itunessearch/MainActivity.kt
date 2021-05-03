@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             queryMap["term"]=searchTerm
             queryMap["media"]=mediaType
             queryMap["lang"]="en_us"
-            queryMap["limit"]="501"
+            queryMap["limit"]="11"
 
             StoreItemFragment().fetchItems(
                 queryMap

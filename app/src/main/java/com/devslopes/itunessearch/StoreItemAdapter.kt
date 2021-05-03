@@ -1,12 +1,22 @@
 package com.devslopes.itunessearch
 
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devslopes.itunessearch.databinding.ItemStoreBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.net.URI
 
+private const val TAG = "StoreItemAdapter.kt"
 class StoreItemAdapter : ListAdapter<StoreItem, StoreItemAdapter.StoreItemViewHolder>(diff) {
 
     companion object {
@@ -38,6 +48,21 @@ class StoreItemAdapter : ListAdapter<StoreItem, StoreItemAdapter.StoreItemViewHo
 
         fun onBind(item: StoreItem) {
             binding.title.text = item.trackName
+            binding.detailTextLabel.text = item.artistName
+
+
+            StoreItemFragment().getImageData(
+                item.artworkUrl100
+            ) {
+                //Set image with data somehow.
+                //val imageBytes = it.toByteArray()
+                val image = BitmapFactory.decodeByteArray(
+                    it,
+                    0,
+                    it.size)
+                binding.imageView.setImageBitmap(image)
+                Log.i(TAG, "ImageData. ${it.size}")
+            }
         }
     }
 }
