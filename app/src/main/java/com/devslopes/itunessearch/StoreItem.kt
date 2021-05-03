@@ -5,13 +5,6 @@ import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 
-//TODO:  the following requirement didn't make sense.  I didn't see this happen. Old api?
-/*
-
-You might have noticed that an item can have different types of descriptions. Some items have a description key, while others have a longDescription key. Your model object makes no distinction between the two. If the API sends down a value with the description key, that is what you should assign to your model. However, if it sends down a value with the longDescription key and nothing with the description key, you should use that instead. If neither value exists, just assign description to an empty string.
-
- */
-
 private const val TAG =  "Model - StoreItem"
 
 data class StoreItems(

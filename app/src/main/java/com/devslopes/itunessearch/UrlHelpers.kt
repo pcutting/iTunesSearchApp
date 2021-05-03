@@ -10,14 +10,6 @@ import javax.net.ssl.HttpsURLConnection
 
 private const val TAG = "Utilities.kt"
 
-/*  Sample:
-    var queryMap : Map<String,String> = mapOf(
-        "term" to "red+velvet",
-        "media" to "music",
-        "limit" to "500"
-    )
- */
-
 fun URL.buildUrl(queryMap: Map<String,String>):URL {
     val oldUrl : URL = this
     val query = queryMap.map {

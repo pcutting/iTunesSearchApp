@@ -1,5 +1,7 @@
 package com.devslopes.itunessearch
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,53 +48,15 @@ class StoreItemFragment {
         }
     }
 
-
-    fun getImageData(url: String,  onComplete: (ByteArray) -> Unit){
+    fun getImageData(url: String,  onComplete: (Bitmap) -> Unit){
         CoroutineScope(Dispatchers.IO).launch {
-        var data: ByteArray
-
             try {
-                val imageUrl = URL(url)
-                Log.i(TAG, "imageURL: $imageUrl")
-                val connection = imageUrl.openConnection() as HttpsURLConnection
-                val bufferReader = BufferedReader(InputStreamReader(connection.inputStream))
-                try {
-                    val result = bufferReader.readText()
-                    data = result.toByteArray()
-                    connection.inputStream.close()
-                    onComplete(data)
-                } catch (ex: Exception) {
-                    Log.i(TAG, "exception in getting file: $ex")
-                }
-
+                val url = URL(url)
+                val image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                onComplete(image)
             } catch (ex: Exception) {
                 Log.e(TAG, "getImageData had an error: $ex")
             }
         }
     }
-
-
-
-        /*
-        fun getItunesJson(url: URL):String? {
-    var data = ""
-    try {
-        val connection = url.openConnection() as HttpsURLConnection
-        connection.connect()
-        connection.connectTimeout = 5000
-        connection.readTimeout = 5000
-        data = streamToString(connection.inputStream)
-    } catch (ex: Exception) {
-        Log.i (TAG, "Exception : $ex")
-    }
-
-    return if (data == "") {
-        null
-    } else {
-        data
-    }
-}
-         */
-
-
 }

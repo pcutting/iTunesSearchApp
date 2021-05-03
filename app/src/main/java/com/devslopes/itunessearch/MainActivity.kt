@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devslopes.itunessearch.databinding.ActivityMainBinding
 
-
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
